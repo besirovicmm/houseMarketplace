@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
+
 import { db } from '../firebase.config'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
+import OAuth from '../components/OAuth'
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -38,13 +42,21 @@ const SignUp = () => {
         email,
         password
       )
+      const user = userCredential.user
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      })
+
+      const formDataCopy = { ...formData }
+      delete formDataCopy.password
+      formDataCopy.timestamp = serverTimestamp()
+
+      await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
       navigate('/')
     } catch (error) {
-      const errorCode = error.code
-      const errorMessage = error.message
-
-      console.log(errorCode, errorMessage)
+      toast.error('Error with reg')
     }
   }
 
@@ -103,6 +115,7 @@ const SignUp = () => {
             </div>
           </form>
 
+          <OAuth />
           <Link to="/sign-in" className="registerLink">
             Sign In Instead
           </Link>
