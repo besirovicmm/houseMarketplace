@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import rentCategoryImage from '../assets/jpg/rentCategoryImage.jpg'
 import sellCategoryImage from '../assets/jpg/sellCategoryImage.jpg'
@@ -22,7 +22,7 @@ const Explore = () => {
             ></img>
             <p className="exploreCategoryName">Places for rent</p>
           </Link>
-          <Link to="/category/sell">
+          <Link to="/category/sale">
             <img
               src={sellCategoryImage}
               alt="sell category"
