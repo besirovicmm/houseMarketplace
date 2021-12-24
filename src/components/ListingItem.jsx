@@ -48,6 +48,7 @@ function ListingItem({ listing, id, onEdit, onDelete }) {
         </div>
       </Link>
 
+      {onEdit && <EditIcon className="editIcon" onClick={() => onEdit(id)} />}
       {onDelete && (
         <DeleteIcon
           className="removeIcon"

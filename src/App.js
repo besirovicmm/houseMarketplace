@@ -11,7 +11,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import ForgotPassword from './pages/ForgotPassword'
 import CreateListing from './pages/CreateListing'
-// import EditListing from './pages/EditListing'
+import EditListing from './pages/EditListing'
 import Listing from './pages/Listing'
 import Contact from './pages/Contact'
 
@@ -23,6 +23,7 @@ function App() {
           <Route path="/" element={<Explore />} />
           <Route path="/create-listing" element={<CreateListing />} />
           <Route path="/offers" element={<Offers />} />
+          <Route path="/edit-listing/:listingId" element={<EditListing />} />
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
           </Route>
